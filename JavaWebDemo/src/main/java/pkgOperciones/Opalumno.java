@@ -24,7 +24,7 @@ public class Opalumno {
 			System.out.print("[->] INGRESE OPCION : ");
 			retornarOpcion = tecldo.nextInt();
 		}catch(Exception e) {
-			opSeleccionarOpcion();
+			retornarOpcion = 99;
 		}
 		return retornarOpcion;
 	}

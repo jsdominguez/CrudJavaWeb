@@ -7,7 +7,15 @@ public class CtrlAlumno {
 	
 	public void ctrlInciar() {
 		Opalumno.OpMostrarMenu();
+		this.ctrlSeleccionarOpcion();
+	}
+	
+	public void ctrlSeleccionarOpcion() {
 		int opcElegida = Opalumno.opSeleccionarOpcion();
+		this.ctrlEjecutarAccion(opcElegida);
+	}
+	
+	public void ctrlEjecutarAccion(int opcElegida) {
 		switch(opcElegida) {
 			case 0:
 				System.exit(0);
@@ -28,7 +36,8 @@ public class CtrlAlumno {
 				this.ctlrBuscarAlumnoId();
 				break;
 			default:
-				System.out.println("[X] OPCION INCORRECTA [X]");
+				System.out.println("\n[X] OPCION INCORRECTA [X]\n");
+				this.ctrlSeleccionarOpcion();
 				break;
 		}
 		this.ctrlInciar();
