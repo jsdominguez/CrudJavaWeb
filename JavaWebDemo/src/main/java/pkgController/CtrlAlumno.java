@@ -4,7 +4,36 @@ import pkgModel.MdlAlumno;
 import pkgOperciones.Opalumno;
 
 public class CtrlAlumno {
-		
+	
+	public void ctrlInciar() {
+		Opalumno.OpMostrarMenu();
+		int opcElegida = Opalumno.opSeleccionarOpcion();
+		switch(opcElegida) {
+			case 0:
+				System.exit(0);
+				break;
+			case 1:
+				this.ctlrRegistrarAlumno();
+			break;
+			case 2:
+				this.ctrlListarAlumno();
+			break;
+			case 3:
+				this.ctrlEditarAlumno();
+			break;
+			case 4:
+				this.ctrlEliminarAlumnoId();
+				break;
+			case 5:
+				this.ctlrBuscarAlumnoId();
+				break;
+			default:
+				System.out.println("[X] OPCION INCORRECTA [X]");
+				break;
+		}
+		this.ctrlInciar();
+	}
+	
 	public void ctlrRegistrarAlumno() {
 		MdlAlumno objAlumno = Opalumno.opSolicitarDatos(0);
 		DaoAlumno objDaoAlumno = new DaoAlumno();

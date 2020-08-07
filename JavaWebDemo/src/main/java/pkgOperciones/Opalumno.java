@@ -4,6 +4,31 @@ import java.util.Scanner;
 
 public class Opalumno {
 	
+	public static void OpMostrarMenu() {
+		System.out.println("\n*********** MENU **********");
+		System.out.println("*                         *");
+		System.out.println("*  1- REGISTRAR ALUMNO    *");
+		System.out.println("*  2- LISTAR ALUMNO       *");
+		System.out.println("*  3- ACTUALIZAR ALUMNO   *");
+		System.out.println("*  4- ELIMINAR ALUMNO     *");
+		System.out.println("*  5- BUSCAR ALUMNO       *");
+		System.out.println("*  0- SALIR               *");
+		System.out.println("*                         *");
+		System.out.println("***************************");
+	}
+	
+	public static int opSeleccionarOpcion() {
+		int retornarOpcion = 0;
+		try {
+			Scanner tecldo = new Scanner(System.in);
+			System.out.print("[->] INGRESE OPCION : ");
+			retornarOpcion = tecldo.nextInt();
+		}catch(Exception e) {
+			opSeleccionarOpcion();
+		}
+		return retornarOpcion;
+	}
+	
 	public static MdlAlumno opSolicitarDatos(int codigoUpdate) {
 		Scanner tecldo = new Scanner(System.in);
 		MdlAlumno objaAlumno = new MdlAlumno();
