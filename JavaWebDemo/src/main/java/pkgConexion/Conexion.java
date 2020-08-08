@@ -1,9 +1,9 @@
 package pkgConexion;
 
 import java.util.Properties;
-import java.io.InputStream;
 import java.sql.Connection;
-import java.io.FileInputStream;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.sql.DriverManager;
 
 public class Conexion {
@@ -11,14 +11,16 @@ public class Conexion {
 	public static Connection conectar() {
 		
 		Properties prop = new Properties();
-		InputStream input = null;
 		Connection con = null;
 		String dbgestor,server,port,database,user,password;
 		
 		try {
-			//cargamos el archivo de configuracion
-			input = new FileInputStream("src/main/java/config.properties");
-			prop.load(input);
+			
+			//fileReader = lee caracter por caracter un archivo que contiene texto
+			//BufferedReader = le ayuda a obtener toda una linea de caracteres y potencia para ser mas rapida la lectura  
+			FileReader fileConfigurcion =  new FileReader("src/main/java/config.properties");
+			BufferedReader leerPropiedades = new BufferedReader(fileConfigurcion);
+			prop.load(leerPropiedades);
 			
 			//obtenemos las propiedades del rchivo de configuracion
 			dbgestor = prop.getProperty("dbgestor");
