@@ -35,6 +35,9 @@ public class CtrlAlumno {
 			case 5:
 				this.ctlrBuscarAlumnoId();
 				break;
+			case 6:
+				this.ctrlGenerarReporteExcel();
+				break;
 			default:
 				System.out.println("\n[X] OPCION INCORRECTA [X]\n");
 				this.ctrlSeleccionarOpcion();
@@ -52,13 +55,13 @@ public class CtrlAlumno {
 	public void ctlrBuscarAlumnoId() {
 		int codigo = Opalumno.opSolicitarIdAlumno();
 		DaoAlumno objDaoAlumno = new DaoAlumno();
-		objDaoAlumno.daoBuscarAlumnoId(codigo);
+		Opalumno.opListarAlumno(objDaoAlumno.daoBuscarAlumnoId(codigo));
 	}
 	
 	public void ctrlEditarAlumno() {
 		int codigo = Opalumno.opSolicitarIdAlumno();
 		DaoAlumno objDaoAlumno = new DaoAlumno();
-		if(objDaoAlumno.daoBuscarAlumnoId(codigo)){
+		if(Opalumno.opListarAlumno(objDaoAlumno.daoBuscarAlumnoId(codigo))){
 			MdlAlumno objAlumno = Opalumno.opSolicitarDatos(codigo);
 			objDaoAlumno.daoEditarAlumno(objAlumno);
 		}
@@ -72,6 +75,11 @@ public class CtrlAlumno {
 	
 	public void ctrlListarAlumno() {
 		DaoAlumno objDaoAlumno = new DaoAlumno();
-		objDaoAlumno.daoListarAlumno();
+		Opalumno.opListarAlumno(objDaoAlumno.daoListarAlumno());
+	}
+	
+	public void ctrlGenerarReporteExcel() {
+		DaoAlumno objDaoAlumno = new DaoAlumno();
+		Opalumno.opGenerarReporteExcel(objDaoAlumno.daoListarAlumno());
 	}
 }

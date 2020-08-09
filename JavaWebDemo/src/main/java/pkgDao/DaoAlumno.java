@@ -17,7 +17,7 @@ public class DaoAlumno {
 	int parametroPostgres = ResultSet.TYPE_SCROLL_SENSITIVE;
 	int parametroPostgres2 = ResultSet.CONCUR_UPDATABLE;
 	
-	public void daoListarAlumno() {
+	public ResultSet daoListarAlumno() {
 				
 		try {
 			
@@ -26,29 +26,15 @@ public class DaoAlumno {
 			prepareConsulta = con.prepareStatement(this.sql,parametroPostgres,parametroPostgres2);
 			resultadoDatos = prepareConsulta.executeQuery();
 			
-			//verifica si la fila siguiente hay datos , se posiciona desde la cabezera para poder leer la siguiente fila
-			if(resultadoDatos.next()) {
-				//si next encuentra dato avanza una fila, por eso lo regresamos a la cabezera xq ya encontro datos y se ha movido
-				resultadoDatos.beforeFirst();
-				while(resultadoDatos.next()) {
-					System.out.println("\n*******************************************");
-					System.out.println("id : " + resultadoDatos.getString("id"));
-					System.out.println("Nombre : " + resultadoDatos.getString("nombre"));
-					System.out.println("apellido : " + resultadoDatos.getString("apellido"));
-					System.out.println("edad : " + resultadoDatos.getString("edad"));
-				}
-			}else {
-				System.out.println("\n[-] ID NO ENCONTRADO [-]");
-			}
-			
 		}catch(SQLException sql){
+			
 			System.out.println("[X] ERROR : DaoAlumno -> daoListarAlumno [X]");
 			System.out.println(prepareConsulta);
 			sql.printStackTrace();
-		}finally{
-			this.prepareConsulta = null;
-			this.resultadoDatos = null;
 		}
+		
+		this.prepareConsulta = null;
+		return resultadoDatos;
 	}
 	
 	public void daoRegistrarAlumno(MdlAlumno paramObjalumno) {
@@ -104,9 +90,8 @@ public class DaoAlumno {
 		}
 	}
 	
-	public boolean daoBuscarAlumnoId(int codigo) {
+	public ResultSet daoBuscarAlumnoId(int codigo) {
 		
-		boolean idEncontrado = false; 
 		try {
 			
 			this.con = Conexion.conectar(); 
@@ -115,30 +100,13 @@ public class DaoAlumno {
 			prepareConsulta.setInt(1,codigo);
 			resultadoDatos = prepareConsulta.executeQuery();
 			
-			//verifica si la fila siguiente hay datos , se posiciona desde la cabezera para poder leer la siguiente fila
-			if(resultadoDatos.next()) {
-				idEncontrado = true;
-				//si next encuentra dato avanza una fila, por eso lo regresamos a la cabezera xq ya encontro datos y se ha movido
-				resultadoDatos.beforeFirst();
-				while(resultadoDatos.next()) {
-					System.out.println("id : " + resultadoDatos.getString("id"));
-					System.out.println("Nombre : " + resultadoDatos.getString("nombre"));
-					System.out.println("apellido : " + resultadoDatos.getString("apellido"));
-					System.out.println("edad : " + resultadoDatos.getString("edad"));
-					System.out.println("");
-				}
-			}else {
-				System.out.println("\n[-] ID NO ENCONTRADO [-]");
-			}
-			
 		}catch(SQLException sql){
 			System.out.println("[X] ERROR : DaoAlumno -> daoBuscarAlumnoId [X]");
 			System.out.println(prepareConsulta);
 		}finally{
 			this.prepareConsulta = null;
-			this.resultadoDatos = null;
 		}
-		return idEncontrado;
+		return resultadoDatos;
 	}
 	
 	public void daoEliminarAlumnoId(int codigo) {
