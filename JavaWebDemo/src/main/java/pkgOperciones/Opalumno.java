@@ -1,17 +1,23 @@
 package pkgOperciones;
-import pkgModel.MdlAlumno;
 
+import pkgModel.MdlAlumno;
+import pkgConexion.Conexion;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
-
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import javax.swing.WindowConstants;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class Opalumno {
 	
@@ -24,6 +30,7 @@ public class Opalumno {
 		System.out.println("*  4- ELIMINAR ALUMNO     *");
 		System.out.println("*  5- BUSCAR ALUMNO       *");
 		System.out.println("*  6- GENERAR EXCEL       *");
+		System.out.println("*  7- GENERAR PDF         *");
 		System.out.println("*  0- SALIR               *");
 		System.out.println("*                         *");
 		System.out.println("***************************");
@@ -105,7 +112,8 @@ public class Opalumno {
 			XSSFSheet hoja2 = book.createSheet("Hoja2");
 			
 			//crea el archivo
-			File excel = new File("Demo.xlsx");
+			File excel = new File("src/main/resources/Alumno/Reportes/Excel/Demo.xlsx");
+			excel.createNewFile();
 			//establece el vinculo para poder escribir
 			FileOutputStream vinculo = new FileOutputStream(excel);
 			
@@ -162,6 +170,22 @@ public class Opalumno {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
+	}
+	
+	public static void opGenerarReportePDF() {
+		
+		try{
+			String ruta = "src/main/resources/Alumno/Reportes/PDF/Alumno.jasper";
+            JasperReport report = (JasperReport) JRLoader.loadObjectFromFile(ruta);
+            JasperPrint jprint = JasperFillManager.fillReport(report, null,Conexion.conectar());
+            
+            JasperViewer view = new JasperViewer(jprint, false);
+            view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+            view.setVisible(true);
+            System.out.println("\n [-] REPORTE GENERADO [-]");
+        }catch(JRException ex){
+            ex.printStackTrace();
+        }
 	}
 	
 }

@@ -38,6 +38,9 @@ public class CtrlAlumno {
 			case 6:
 				this.ctrlGenerarReporteExcel();
 				break;
+			case 7:
+				this.ctrlGenerarReportePDF();
+				break;
 			default:
 				System.out.println("\n[X] OPCION INCORRECTA [X]\n");
 				this.ctrlSeleccionarOpcion();
@@ -81,5 +84,9 @@ public class CtrlAlumno {
 	public void ctrlGenerarReporteExcel() {
 		DaoAlumno objDaoAlumno = new DaoAlumno();
 		Opalumno.opGenerarReporteExcel(objDaoAlumno.daoListarAlumno());
+	}
+	
+	public void ctrlGenerarReportePDF() {
+		Opalumno.opGenerarReportePDF();
 	}
 }

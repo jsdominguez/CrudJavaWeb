@@ -13,6 +13,5 @@ public interface ITFAlumno {
 	
 	public ResultSet daoBuscarAlumnoId(int codigo);
 	
-	public void daoEliminarAlumnoId(int codigo);
-	
+	public void daoEliminarAlumnoId(int codigo);	
 }
