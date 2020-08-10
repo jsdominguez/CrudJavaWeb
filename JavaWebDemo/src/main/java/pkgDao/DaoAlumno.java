@@ -2,13 +2,13 @@ package pkgDao;
 
 import pkgConexion.Conexion;
 import pkgModel.MdlAlumno;
-
+import pkgInterfaces.ITFAlumno;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DaoAlumno {
+public class DaoAlumno implements ITFAlumno{
 	
 	Connection con = null;
 	String sql;
@@ -17,6 +17,7 @@ public class DaoAlumno {
 	int parametroPostgres = ResultSet.TYPE_SCROLL_SENSITIVE;
 	int parametroPostgres2 = ResultSet.CONCUR_UPDATABLE;
 	
+	@Override
 	public ResultSet daoListarAlumno() {
 				
 		try {
@@ -37,6 +38,7 @@ public class DaoAlumno {
 		return resultadoDatos;
 	}
 	
+	@Override
 	public void daoRegistrarAlumno(MdlAlumno paramObjalumno) {
 		
 		try {
@@ -64,6 +66,7 @@ public class DaoAlumno {
 		}
 	}
 	
+	@Override
 	public void daoEditarAlumno(MdlAlumno paramObjalumno) {
 		try {
 			
@@ -90,6 +93,7 @@ public class DaoAlumno {
 		}
 	}
 	
+	@Override
 	public ResultSet daoBuscarAlumnoId(int codigo) {
 		
 		try {
@@ -109,6 +113,7 @@ public class DaoAlumno {
 		return resultadoDatos;
 	}
 	
+	@Override
 	public void daoEliminarAlumnoId(int codigo) {
 		
 		try {
